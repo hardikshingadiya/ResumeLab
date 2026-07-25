@@ -12,6 +12,8 @@ lifecycle = "2.10.0"
 coroutines = "1.10.2"
 genai = "0.2.0"
 secrets = "2.0.1"
+pdfbox = "2.0.27.0"
+poi = "5.2.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,6 +28,8 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifec
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 google-genai-kotlin = { group = "com.google.genai", name = "google-genai-kotlin", version.ref = "genai" }
+pdfbox-android = { group = "com.tom-roush", name = "pdfbox-android", version.ref = "pdfbox" }
+poi-ooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

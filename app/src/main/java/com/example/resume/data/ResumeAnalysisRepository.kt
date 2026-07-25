@@ -34,7 +34,8 @@ class ResumeAnalysisRepository {
             formattingScore = root.optInt("formattingScore").coerceIn(0, 100),
             contentScore = root.optInt("contentScore").coerceIn(0, 100),
             missingKeywords = root.optJSONArray("missingKeywords").toMissingKeywords(),
-            improvedSuggestions = root.optJSONArray("improvedSuggestions").toSuggestions()
+            improvedSuggestions = root.optJSONArray("improvedSuggestions").toSuggestions(),
+            overallVerdict = root.optString("overallVerdict", "")
         )
     }
 
@@ -68,37 +69,98 @@ class ResumeAnalysisRepository {
                     originalText = resumeText.lineSequence().firstOrNull { it.length > 24 }?.take(140)
                         ?: "Responsible for delivering software features.",
                     suggestedRewrite = "Delivered production Android features using Kotlin, MVVM, and coroutine-based async workflows aligned to business goals.",
-                    explanation = "The rewrite adds stack specificity, stronger ownership language, and clearer relevance to the target role."
+                    explanation = "The rewrite adds stack specificity, stronger ownership language, and clearer relevance to the target role.",
+                    isOptional = true
                 ),
                 ImprovedSuggestion(
                     originalText = "Worked with teams to improve application quality.",
                     suggestedRewrite = "Partnered with product and QA to reduce defects through focused reviews, telemetry-driven fixes, and repeatable release checks.",
-                    explanation = "The suggestion turns a broad responsibility into a concrete, outcome-oriented accomplishment."
+                    explanation = "The suggestion turns a broad responsibility into a concrete, outcome-oriented accomplishment.",
+                    isOptional = true
                 )
-            )
+            ),
+            overallVerdict = "Based on the text provided, this appears to be a partial resume. Consider adding more details about your experience, skills, and achievements for a more accurate assessment."
         )
     }
 
-    private fun buildPrompt(resumeText: String, jobDescriptionText: String): String = """
-        You are an expert resume reviewer. Return only valid JSON with this exact schema:
+   private fun buildPrompt(resumeText: String, jobDescriptionText: String): String = """
+    You are a senior ATS (Applicant Tracking System) evaluator and hiring manager with 15+ years of experience. 
+    Analyze the resume against the job description like a real ATS system would.
+    
+    STRICT EVALUATION RULES:
+    - matchScore must reflect GENUINE skill and experience alignment, not keyword stuffing
+    - A resume with random or irrelevant words must score LOW (below 30)
+    - Only suggest keywords that are TECHNICALLY RELEVANT to the job description
+    - Never suggest generic words like "teamwork", "hardworking", "homework" unless explicitly critical to the role
+    - missingKeywords must only include PROFESSIONAL skills, tools, technologies, or certifications
+    - improvedSuggestions must only appear if the resume has REAL weaknesses
+    - If resume is strong, return empty improvedSuggestions array
+    - Scores must be HARSH and REALISTIC — a fresh graduate cannot score 90+
+    
+    SCORING CRITERIA:
+    
+    matchScore (0-100):
+    - 0-20: Resume is irrelevant or clearly fake/random content
+    - 21-40: Weak match, missing most required skills
+    - 41-60: Partial match, has some relevant skills but gaps exist
+    - 61-80: Good match, meets most requirements with minor gaps
+    - 81-100: Excellent match, strong alignment with required skills and experience
+    
+    formattingScore (0-100):
+    - Check for: clear sections (Education, Experience, Skills, Projects)
+    - Check for: consistent formatting, proper dates, bullet points
+    - Check for: appropriate length (1 page for freshers, 2 for experienced)
+    - Check for: contact information present
+    - Penalize: walls of text, missing sections, inconsistent formatting
+    
+    contentScore (0-100):
+    - Check for: quantified achievements (numbers, percentages, impact)
+    - Check for: strong action verbs (built, developed, optimized, led)
+    - Check for: relevant projects with tech stack mentioned
+    - Check for: education relevance to job role
+    - Penalize: vague statements, passive language, irrelevant experience
+    
+    KEYWORD RULES:
+    - Only extract keywords from job description that are TECHNICAL or ROLE-SPECIFIC
+    - Ignore common words, soft skills unless the JD specifically emphasizes them
+    - impactPercent must reflect how critical that keyword is to THIS specific role
+    - reason must explain WHY this keyword matters for THIS job, not generically
+    
+    SUGGESTION RULES:
+    - Only suggest rewrites for genuinely weak bullet points
+    - Suggestions must add measurable impact or clarity
+    - If a bullet point is already strong, do NOT include it
+    - Mark suggestions as "optional" if resume is already competitive
+    
+    Return ONLY valid JSON with this exact schema, no extra text:
+    {
+      "matchScore": 0-100,
+      "formattingScore": 0-100,
+      "contentScore": 0-100,
+      "missingKeywords": [
         {
-          "matchScore": 0-100,
-          "formattingScore": 0-100,
-          "contentScore": 0-100,
-          "missingKeywords": [
-            {"keyword": "string", "impactPercent": 0-100, "reason": "string"}
-          ],
-          "improvedSuggestions": [
-            {"originalText": "string", "suggestedRewrite": "string", "explanation": "string"}
-          ]
+          "keyword": "string (technical skill/tool/certification only)",
+          "impactPercent": 0-100,
+          "reason": "string (specific to this job role, not generic)"
         }
-
-        Resume:
-        $resumeText
-
-        Job description:
-        $jobDescriptionText
-    """.trimIndent()
+      ],
+      "improvedSuggestions": [
+        {
+          "originalText": "string (actual text from resume)",
+          "suggestedRewrite": "string (stronger, quantified version)",
+          "explanation": "string (why this change improves ATS score)",
+          "isOptional": true/false
+        }
+      ],
+      "overallVerdict": "string (2-3 lines honest assessment like a real hiring manager)"
+    }
+    
+    Resume:
+    $resumeText
+    
+    Job Description:
+    $jobDescriptionText
+""".trimIndent()
 
     private fun JSONArray?.toMissingKeywords(): List<MissingKeyword> {
         if (this == null) return emptyList()
@@ -120,7 +182,8 @@ class ResumeAnalysisRepository {
                 ImprovedSuggestion(
                     originalText = it.optString("originalText"),
                     suggestedRewrite = it.optString("suggestedRewrite"),
-                    explanation = it.optString("explanation")
+                    explanation = it.optString("explanation"),
+                    isOptional = it.optBoolean("isOptional", false)
                 )
             }
         }

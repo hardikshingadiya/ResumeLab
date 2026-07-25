@@ -1,6 +1,7 @@
 package com.example.resume.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.resume.databinding.ItemSuggestionBinding
@@ -35,6 +36,11 @@ class SuggestionsAdapter : RecyclerView.Adapter<SuggestionsAdapter.SuggestionVie
             originalText.text = suggestion.originalText
             suggestedText.text = suggestion.suggestedRewrite
             explanationText.text = suggestion.explanation
+            if (suggestion.isOptional) {
+                optionalBadge.visibility = View.VISIBLE
+            } else {
+                optionalBadge.visibility = View.GONE
+            }
         }
     }
 }

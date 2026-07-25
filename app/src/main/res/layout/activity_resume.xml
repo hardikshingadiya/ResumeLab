@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,6 +8,25 @@
     android:layout_height="match_parent"
     android:background="@color/background_warm"
     tools:context=".ui.ResumeActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_card"
+        app:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/surface_card"
+            app:logo="@android:drawable/ic_menu_edit"
+            app:logoDescription="@string/app_name"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:titleTextColor="@color/text_primary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/contentScroll"
@@ -16,61 +36,69 @@
         android:fillViewport="true"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:paddingBottom="112dp">
+        android:paddingBottom="40dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="24dp">
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Resume Lens"
-                android:textColor="@color/text_primary"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Paste your resume and target role, then get a focused fit analysis."
+                android:lineSpacingExtra="2dp"
+                android:text="Paste your target role and upload your resume, then get a focused fit analysis."
                 android:textColor="@color/text_secondary"
                 android:textSize="15sp" />
 
+            <!-- Input Card -->
             <LinearLayout
                 android:id="@+id/inputCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/bg_card"
                 android:elevation="2dp"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="20dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/resumeInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Resume text"
-                    app:boxStrokeColor="@color/primary_slate"
-                    app:hintTextColor="@color/primary_slate">
+                    android:text="@string/choose_file"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/resumeEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:gravity="top|start"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:overScrollMode="ifContentScrolls"
-                        android:scrollbars="vertical"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_secondary"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/uploadResumeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/primary_slate"
+                    android:text="@string/choose_file"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/ic_menu_upload"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconTint="@color/white" />
+
+                <TextView
+                    android:id="@+id/fileNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:textColor="@color/secondary_sage"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    tools:text="resume.pdf"
+                    tools:visibility="visible" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/jobInputLayout"
@@ -78,30 +106,47 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Job description"
+                    android:hint="@string/job_description_hint"
                     app:boxStrokeColor="@color/primary_slate"
                     app:hintTextColor="@color/primary_slate">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/jobEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_height="140dp"
                         android:gravity="top|start"
                         android:inputType="textMultiLine|textCapSentences"
                         android:scrollbars="vertical"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Added analyzeButton -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/analyzeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/primary_slate"
+                    android:text="Analyze Resume"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
             </LinearLayout>
 
+            <!-- Loading Container -->
             <LinearLayout
                 android:id="@+id/loadingContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:layout_width="48dp"
@@ -113,12 +158,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Analyzing fit"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/analyzing_fit"
                     android:textColor="@color/text_secondary"
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- Error State -->
             <TextView
                 android:id="@+id/errorText"
                 android:layout_width="match_parent"
@@ -131,62 +177,216 @@
                 android:visibility="gone"
                 tools:text="Something went wrong" />
 
+            <!-- Dashboard Container -->
             <LinearLayout
                 android:id="@+id/dashboardContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="24dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
+                <!-- Verdict Card -->
                 <LinearLayout
+                    android:id="@+id/verdictContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_card"
+                    android:background="@drawable/bg_verdict_card"
                     android:elevation="2dp"
                     android:orientation="vertical"
-                    android:padding="18dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Score dashboard"
-                        android:textColor="@color/text_primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                    android:padding="18dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.example.resume.ui.widget.RoundProgressView
-                            android:id="@+id/matchProgress"
+                        <TextView
                             android:layout_width="0dp"
-                            android:layout_height="124dp"
-                            android:layout_weight="1" />
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/overall_verdict_title"
+                            android:textColor="@color/primary_slate"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                        <com.example.resume.ui.widget.RoundProgressView
-                            android:id="@+id/formattingProgress"
-                            android:layout_width="0dp"
-                            android:layout_height="124dp"
-                            android:layout_weight="1" />
-
-                        <com.example.resume.ui.widget.RoundProgressView
-                            android:id="@+id/contentProgress"
-                            android:layout_width="0dp"
-                            android:layout_height="124dp"
-                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/scoreTotalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_keyword_chip"
+                            android:paddingStart="12dp"
+                            android:paddingTop="6dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="6dp"
+                            android:textColor="@color/primary_slate"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="72%" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/verdictText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        tools:text="Your resume shows good alignment with the role. Consider adding more quantifiable achievements." />
                 </LinearLayout>
 
+                <!-- Score Dashboard Section -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:text="Missing keywords"
+                    android:layout_marginTop="20dp"
+                    android:text="Score breakdown"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Score Cards List -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical">
+
+                    <!-- Match Score Card -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_score_card"
+                        android:elevation="1dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <com.example.resume.ui.widget.RoundProgressView
+                            android:id="@+id/matchProgress"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/score_match"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="How well your resume aligns with the job requirements"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Formatting Score Card -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_score_card"
+                        android:elevation="1dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <com.example.resume.ui.widget.RoundProgressView
+                            android:id="@+id/formattingProgress"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/score_format"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Structure, readability, and ATS-friendliness"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Content Score Card -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_score_card"
+                        android:elevation="1dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <com.example.resume.ui.widget.RoundProgressView
+                            android:id="@+id/contentProgress"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/score_content"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Quantified achievements and impactful language"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Missing Keywords Section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/missing_keywords_title"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -195,16 +395,17 @@
                     android:id="@+id/missingKeywordsRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_missing_keyword" />
 
+                <!-- Suggestions Section -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Smart suggestions"
+                    android:layout_marginTop="22dp"
+                    android:text="@string/suggestions_title"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -213,32 +414,13 @@
                     android:id="@+id/suggestionsRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false"
                     tools:itemCount="2"
                     tools:listitem="@layout/item_suggestion" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/analyzeButton"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/analyze_resume"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/primary_slate"
-        app:cornerRadius="18dp"
-        app:icon="@android:drawable/ic_menu_search"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

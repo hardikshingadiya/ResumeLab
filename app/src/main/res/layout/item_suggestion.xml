@@ -9,12 +9,48 @@
     android:orientation="vertical"
     android:padding="14dp">
 
+    <!-- Header / Badge Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Suggestion"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/optionalBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_optional_badge"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="3dp"
+            android:text="Optional"
+            android:textColor="@color/optional_badge_text"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Original vs Suggested Comparison Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
+        <!-- Original Panel -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -42,6 +78,7 @@
                 tools:text="Managed Android development for internal apps." />
         </LinearLayout>
 
+        <!-- Suggested Panel -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -70,6 +107,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- Explanation Box -->
     <TextView
         android:id="@+id/explanationText"
         android:layout_width="match_parent"
@@ -80,4 +118,5 @@
         android:textColor="@color/text_secondary"
         android:textSize="14sp"
         tools:text="The rewrite adds role-specific terms and makes the impact more concrete." />
+
 </LinearLayout>

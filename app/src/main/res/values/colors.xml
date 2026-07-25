@@ -4,7 +4,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_warm">#F8F9FA</color>
     <color name="primary_slate">#4A6984</color>
+    <color name="primary_slate_dark">#3A5570</color>
+    <color name="primary_slate_light">#6B8BA8</color>
     <color name="secondary_sage">#769F8A</color>
+    <color name="secondary_sage_dark">#5E8570</color>
+    <color name="secondary_sage_light">#9CBDA8</color>
+    <color name="accent_gold">#D4A853</color>
+    <color name="accent_gold_dark">#B8923A</color>
     <color name="surface_card">#FFFFFF</color>
     <color name="border_soft">#E5E7EB</color>
     <color name="text_primary">#17212B</color>
@@ -12,4 +18,16 @@
     <color name="muted_panel">#F1F3F5</color>
     <color name="sage_panel">#EDF5F0</color>
     <color name="error_soft">#B86B6B</color>
+    <color name="card_shadow">#1A000000</color>
+    <color name="card_shadow_dark">#33000000</color>
+    <color name="optional_badge_bg">#FFF3E0</color>
+    <color name="optional_badge_text">#E67E22</color>
+    <color name="verdict_bg">#F0F4F8</color>
+    <color name="gradient_match_start">#4A6984</color>
+    <color name="gradient_match_end">#6B8BA8</color>
+    <color name="gradient_format_start">#769F8A</color>
+    <color name="gradient_format_end">#9CBDA8</color>
+    <color name="gradient_content_start">#D4A853</color>
+    <color name="gradient_content_end">#E8C576</color>
 </resources>
+

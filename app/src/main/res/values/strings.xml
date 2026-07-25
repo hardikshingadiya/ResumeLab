@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Resume Lens</string>
     <string name="analyze_resume">Analyze resume</string>
+    <string name="choose_file">Choose PDF or DOCX file</string>
+    <string name="extracting">Extracting text…</string>
+    <string name="job_description_hint">Paste job description</string>
+    <string name="score_match">Match</string>
+    <string name="score_format">Format</string>
+    <string name="score_content">Content</string>
+    <string name="missing_keywords_title">Missing keywords</string>
+    <string name="suggestions_title">Smart suggestions</string>
+<string name="overall_verdict_title">Overall verdict</string>
+    <string name="analyzing_fit">Analyzing fit…</string>
+    <string name="optional_badge">Optional</string>
 </resources>
