@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_warm">#F8F9FA</color>
+    <color name="primary_slate">#4A6984</color>
+    <color name="secondary_sage">#769F8A</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="border_soft">#E5E7EB</color>
+    <color name="text_primary">#17212B</color>
+    <color name="text_secondary">#68717C</color>
+    <color name="muted_panel">#F1F3F5</color>
+    <color name="sage_panel">#EDF5F0</color>
+    <color name="error_soft">#B86B6B</color>
+</resources>
